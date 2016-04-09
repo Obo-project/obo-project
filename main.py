@@ -5,6 +5,7 @@ from nltk.tag import tnt
 from nltk.chunk import ne_chunk
 
 from taggers import NamesTagger
+from chunkers import LocationChunker
 import pickle
 
 
@@ -58,19 +59,25 @@ def POS_tagging(words , tagger):
 
 	return tagger.tag(words)
 
-def NE(words):
+def chunks(words , chunker):
 	"""Recognizes named entities"""
 
-	return ne_chunk(words)
+	return chunker.parse(words)
 
 #trainPosTagger()
 tagger = loadPosTagger()
+locChunker = LocationChunker()
+
+chunker = locChunker
 
 sents = tokenize("Barack Obama is the first black president of the United States of America")
 sentence = sents[0]
 sentence = simplify(sentence)
 sentence = lemmatize(sentence)
+
+
 sentence = POS_tagging(sentence, tagger)
 print(sentence)
-sentence = NE(sentence)
+
+sentence = chunks(sentence , chunker)
 print(sentence)
