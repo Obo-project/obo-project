@@ -5,7 +5,7 @@ from nltk.tag import tnt
 from nltk.chunk import ne_chunk
 
 from taggers import NamesTagger
-from chunkers import LocationChunker
+from chunkers import LocationChunker, PersonChunker
 import pickle
 
 
@@ -67,10 +67,11 @@ def chunks(words , chunker):
 #trainPosTagger()
 tagger = loadPosTagger()
 locChunker = LocationChunker()
+personChunker = PersonChunker()
 
-chunker = locChunker
+chunker = personChunker
 
-sents = tokenize("Barack Obama is the first black president of the United States of America")
+sents = tokenize("Raphael Olivier is the first black president of the United States of America")
 sentence = sents[0]
 sentence = simplify(sentence)
 sentence = lemmatize(sentence)
