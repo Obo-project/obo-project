@@ -11,8 +11,6 @@ class NamesTagger(SequentialBackoffTagger):
 		word = tokens[index]
 
 		if word.lower() in self.names_set:
-
 			return 'NNP'
-
-		else :
+		else:
 			return 'NN'

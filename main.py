@@ -12,7 +12,7 @@ import pickle
 def tokenize(text):
 	"""Tokenize a text"""
 	sents = sent_tokenize(text)
-	sents = [ word_tokenize(sent) for sent in sents]
+	sents = [word_tokenize(sent) for sent in sents]
 
 	return sents
 
@@ -27,7 +27,7 @@ def simplify(words):
 def lemmatize(words):
 	"""Replace words with lemmas"""
 	lemmatizer = WordNetLemmatizer()
-	words = [ lemmatizer.lemmatize(word) for word in words]
+	words = [lemmatizer.lemmatize(word) for word in words]
 
 	return words
 
@@ -36,7 +36,7 @@ def trainPosTagger():
 	test_sents = treebank.tagged_sents()[3000:]
 
 	name_tagger = NamesTagger()
-	tnt_tagger = tnt.TnT(unk=name_tagger , Trained=True)
+	tnt_tagger = tnt.TnT(unk=name_tagger, Trained=True)
 	tnt_tagger.train(train_sents)
 	print(tnt_tagger.evaluate(test_sents))
 
@@ -46,22 +46,16 @@ def trainPosTagger():
 
 def loadPosTagger():
 	f = open('tagger.pickle' , 'rb')
-
 	tagger = pickle.load(f)
 	f.close()
-
 	return tagger
-
 
 def POS_tagging(words , tagger):
 	"""Does the POS tagging using tnt"""
-
-
 	return tagger.tag(words)
 
 def chunks(words , chunker):
 	"""Recognizes named entities"""
-
 	return chunker.parse(words)
 
 #trainPosTagger()
@@ -69,13 +63,12 @@ tagger = loadPosTagger()
 locChunker = LocationChunker()
 personChunker = PersonChunker()
 
-chunker = personChunker
+chunker = locChunker
 
-sents = tokenize("Raphael Olivier is the first black president of the United States of America")
+sents = tokenize("There are three million people in France.")
 sentence = sents[0]
 sentence = simplify(sentence)
 sentence = lemmatize(sentence)
-
 
 sentence = POS_tagging(sentence, tagger)
 print(sentence)
