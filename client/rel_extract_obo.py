@@ -49,12 +49,20 @@ def semi_rel2reldict(pairs, window=5, trace=False):
         pairs = pairs[1:]
     return result
 
-def extract_rels(subjclass, objclass, doc, corpus='ace', pattern=None, window=10):
+def extract_rels(subjclass, objclass, doc, corpus='ace', patterns={'left': None, 'middle': None}, position='middle', window=10):
     pairs = nltk.sem.relextract.tree2semi_rel(doc)
     reldicts = semi_rel2reldict(pairs)
+
+    dic = {
+        'middle': 'filler',
+        'left': 'lcon'
+    }
+
     relfilter = lambda x: (x['subjclass'] == subjclass and
-                           len(x['filler'].split()) <= window and
-                           pattern.match(x['filler']) and
+                           len(x[dic['middle']].split()) <= window and
+                           patterns['middle'].match(x[dic['middle']]) and
+                           #len(x[dic['left']].split()) <= window and
+                           #patterns['left'].match(x[dic['left']]) and
                            x['objclass'] == objclass)
 
     return list(filter(relfilter, reldicts))
