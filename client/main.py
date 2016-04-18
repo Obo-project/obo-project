@@ -1,7 +1,8 @@
 import server
 
+import nltk
 import re
-import rel_extract_obo
+from rel_extract_obo import extract_rels
 
 dic = {
 	"people": "PPUNIT",
@@ -14,7 +15,7 @@ def f(a , b):
 	else:
 		return b
 
-sents = "Paris in Berlin and in Brazil in Paris in Moscow."
+sents = "There are 6000000 million people in France."
 print(sents)
 
 sents = nltk.sent_tokenize(sents)
@@ -32,15 +33,7 @@ grammar = """
 cp = nltk.RegexpParser(grammar, loop = 2)
 sents = cp.parse(sents)
 
-print(sents)
+LIVE_IN = re.compile(r'.*(live|lives|inhabit\inhabits).*\bin\b(?!\b.+ing)')
 
-IN = re.compile(r'.*\bin\b(?!\b.+ing)')
-
-class doc():
-    pass
-
-doc.headline = ['foo']
-doc.text = sents
-
-for rel in extract_rels('LOC', 'LOC', doc, corpus='ieer', pattern=IN):
+for rel in extract_rels('PPCD', 'LOC', sents, corpus='ieer', pattern=LIVE_IN):
 	print(nltk.sem.relextract.rtuple(rel))

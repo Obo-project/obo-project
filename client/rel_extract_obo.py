@@ -21,12 +21,7 @@ def semi_rel2reldict(pairs, window=5, trace=False):
     return result
 
 def extract_rels(subjclass, objclass, doc, corpus='ace', pattern=None, window=10):
-    if corpus == 'ace' or corpus == 'conll2002':
-        pairs = nltk.sem.relextract.tree2semi_rel(doc)
-    elif corpus == 'ieer':
-        pairs = nltk.sem.relextract.tree2semi_rel(doc.text) + nltk.sem.relextract.tree2semi_rel(doc.headline)
-    else:
-        raise ValueError("corpus type not recognized")
+    pairs = nltk.sem.relextract.tree2semi_rel(doc)
 
     reldicts = semi_rel2reldict(pairs)
 
