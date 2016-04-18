@@ -1,5 +1,34 @@
 import nltk
 
+def precompute(sents):
+    dic = {
+    	"people": "PPUNIT",
+    	"inhabitants": "PPUNIT"
+    }
+
+    def f(a , b):
+    	if a in dic:
+    		return dic[a]
+    	else:
+    		return b
+
+    sents = nltk.sent_tokenize(sents)
+    sents = [nltk.word_tokenize(sent) for sent in sents]
+    sents = [nltk.pos_tag(sent) for sent in sents]
+    sents = [[(a, f(a, b)) for (a,b) in sent] for sent in sents]
+    sents = nltk.ne_chunk(sents[0])
+
+    grammar = """
+    	CDD: {<CD>*}
+    	PPCD: {<CDD><PPUNIT>}
+    	LOC: {<GPE>}
+    	"""
+
+    cp = nltk.RegexpParser(grammar, loop = 2)
+    sents = cp.parse(sents)
+
+    return sents
+
 def semi_rel2reldict(pairs, window=5, trace=False):
     result = []
     while len(pairs) >= 2:
@@ -21,15 +50,9 @@ def semi_rel2reldict(pairs, window=5, trace=False):
     return result
 
 def extract_rels(subjclass, objclass, doc, corpus='ace', pattern=None, window=10):
-    if corpus == 'ace' or corpus == 'conll2002':
-        pairs = nltk.sem.relextract.tree2semi_rel(doc)
-    elif corpus == 'ieer':
-        pairs = nltk.sem.relextract.tree2semi_rel(doc.text) + nltk.sem.relextract.tree2semi_rel(doc.headline)
-    else:
-        raise ValueError("corpus type not recognized")
 
+    pairs = nltk.sem.relextract.tree2semi_rel(doc)
     reldicts = semi_rel2reldict(pairs)
-
     relfilter = lambda x: (x['subjclass'] == subjclass and
                            len(x['filler'].split()) <= window and
                            pattern.match(x['filler']) and
