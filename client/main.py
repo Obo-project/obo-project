@@ -1,4 +1,4 @@
-import server
+from server import post_request
 import speech_recognition as sr
 
 import nltk
@@ -6,7 +6,7 @@ import re
 from rel_extract_obo import precompute, extract_rels
 
 LIVE_IN = re.compile(r'.*(live|lives|inhabit|inhabits|are|is).*\bin\b(?!\b.+ing)')
-THERE = re.compile(r'.*(There are|There is)')
+THERE = re.compile(r'.*(There are|there are|There is|there is)')
 IN = re.compile(r'\bin\b')
 
 def callback(recognizer, audio):
@@ -17,10 +17,13 @@ def callback(recognizer, audio):
 
 		for rel in extract_rels('PPCD', 'LOC', sents, patterns={'left': None, 'middle': LIVE_IN}):
 			print(nltk.sem.relextract.rtuple(rel))
+			post_request('http://localhost:8888/cake_obo/', "entity=France&relation=population&quantity=65000000")
 
 		for rel in extract_rels('PPCD', 'LOC', sents, patterns={'left': THERE, 'middle': IN}):
 			print(nltk.sem.relextract.rtuple(rel))
-			
+
+
+
 	except sr.UnknownValueError:
 		print("Google Speech Recognition could not understand audio")
 	except sr.RequestError:

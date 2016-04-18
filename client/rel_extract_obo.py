@@ -61,8 +61,8 @@ def extract_rels(subjclass, objclass, doc, corpus='ace', patterns={'left': None,
     relfilter = lambda x: (x['subjclass'] == subjclass and
                            len(x[dic['middle']].split()) <= window and
                            patterns['middle'].match(x[dic['middle']]) and
-                           #len(x[dic['left']].split()) <= window and
-                           #patterns['left'].match(x[dic['left']]) and
+                           len(x[dic['left']].split()) <= window and
+                           patterns['left'].match(x[dic['left']]) and
                            x['objclass'] == objclass)
 
     return list(filter(relfilter, reldicts))
