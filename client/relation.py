@@ -2,17 +2,14 @@ import re
 from rel_extract_obo import extract_rels
 from server import post_request
 
-number_dic = {
-    'million': '000000'
-}
-
 class relation(object):
 
-    def __init__(self, relationName , subjclass , objclass , patterns):
+    def __init__(self, relationName , subjclass , objclass , make_nice, patterns):
 
         self.relationName = relationName
         self.objclass = objclass
         self.subjclass = subjclass
+        self.make_nice = make_nice
 
         self.patterns = patterns
 
@@ -20,21 +17,11 @@ class relation(object):
 
         relations = extract_rels(self.subjclass , self.objclass , sentence , patterns=self.patterns)
 
-        return [relationData(self, rel) for rel in relations]
-
-def replace_int(x):
-    if (type(x) != int and x in number_dic.keys()):
-        return number_dic[x]
-    else:
-        return x
-
-def make_nice(text):
-    text = [replace_int(x) for x in text.split('_')]
-    return " ".join(text)
+        return [relationData(self, rel, self.make_nice) for rel in relations]
 
 class relationData(object):
 
-    def __init__(self, relation, rel):
+    def __init__(self, relation, rel, make_nice):
 
         self.objet = make_nice(rel['objsym'])
         self.subject = make_nice(rel['subjsym'])

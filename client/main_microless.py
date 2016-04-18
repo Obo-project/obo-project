@@ -3,9 +3,8 @@ import speech_recognition as sr
 
 import nltk
 import re
-import hasPopulation
 from rel_extract_obo import precompute
-from relation import relation, relationData
+from relations.hasPop import *
 
 
 UNIVERSAL = re.compile(r'.*')
@@ -15,10 +14,11 @@ IN = re.compile(r'\bin\b')
 
 sents = "There are 65 million people in Germany."
 sents = precompute(sents)
+print(sents)
 
-hasPop = relation('hasPopulation' , 'PPCD' , 'LOC' , patterns={'left':THERE, 'middle': IN})
 
 relations = hasPop.extract(sents)
+print(relations)
 
 for rel in relations:
     rel.post()
