@@ -4,25 +4,16 @@ import speech_recognition as sr
 import nltk
 import re
 from rel_extract_obo import precompute, extract_rels
-
-LIVE_IN = re.compile(r'.*(live|lives|inhabit|inhabits|are|is).*\bin\b(?!\b.+ing)')
-THERE = re.compile(r'.*(There are|there are|There is|there is)')
-IN = re.compile(r'\bin\b')
+from relations.hasPop import *
 
 def callback(recognizer, audio):
 	try:
 		sents = recognizer.recognize_google(audio , language = "en")
 		print(sents)
 		sents = precompute(sents)
-
-		for rel in extract_rels('PPCD', 'LOC', sents, patterns={'left': None, 'middle': LIVE_IN}):
-			print(nltk.sem.relextract.rtuple(rel))
-			post_request('http://localhost:8888/cake_obo/', "entity=France&relation=population&quantity=65000000")
-
-		for rel in extract_rels('PPCD', 'LOC', sents, patterns={'left': THERE, 'middle': IN}):
-			print(nltk.sem.relextract.rtuple(rel))
-
-
+		relations = hasPop.extract(sents)
+		for rel in relations:
+		    rel.post();
 
 	except sr.UnknownValueError:
 		print("Google Speech Recognition could not understand audio")
@@ -31,6 +22,7 @@ def callback(recognizer, audio):
 
 r = sr.Recognizer()
 m = sr.Microphone()
+m.SAMPLE_RATE = 48000
 with m as source:
 	r.adjust_for_ambient_noise(source) # we only need to calibrate once, before we start listening
 
