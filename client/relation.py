@@ -14,17 +14,19 @@ class relation(object):
     def extract(self, sentence):
         relations = []
         for patterns in self.patterns_list:
+            #print(patterns)
+            #print(extract_rels(self.subjclass , self.objclass , sentence , patterns=patterns))
             relations += extract_rels(self.subjclass , self.objclass , sentence , patterns=patterns)
-        return [relationData(self, rel, self.make_nice) for rel in relations]
+        return [relationData(self, rel, self.make_nice, comparator=rel['comparator']) for rel in relations]
 
 class relationData(object):
 
-    def __init__(self, relation, rel, make_nice):
-        self.objet = make_nice(rel['objsym'])
+    def __init__(self, relation, rel, make_nice, comparator='egal'):
+        self.objet = rel['objsym']
         self.subject = make_nice(rel['subjsym'])
         self.relation = relation
-        self.comparator = rel['comparator']
+        self.comparator = comparator
 
     def post(self):
-        data = {'relation':self.relation.relationName , 'entity':self.objet , 'quantity':self.subject, 'comparator':self.comparator}
+        data = {'relation':self.relation.relationName, 'entity':self.objet, 'quantity':self.subject, 'comparator':self.comparator}
         post_request('http://localhost:8888/cake_obo/', data)
