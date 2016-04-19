@@ -29,7 +29,7 @@ def precompute(sents):
 
     return sents
 
-def semi_rel2reldict(pairs, window=5, trace=False):
+def semi_rel2reldict(pairs, window=5, trace=False, comparator='egal'):
     result = []
     while len(pairs) >= 2:
         reldict = nltk.sem.relextract.defaultdict(str)
@@ -43,15 +43,16 @@ def semi_rel2reldict(pairs, window=5, trace=False):
         reldict['objtext'] = nltk.sem.relextract._join(pairs[1][1].leaves())
         reldict['objsym'] = nltk.sem.relextract.list2sym(pairs[1][1].leaves())
         #reldict['rcon'] = _join(pairs[2][0][:window])
+        reldict['comparator'] = comparator
         if trace:
             print("(%s(%s, %s)" % (reldict['untagged_filler'], reldict['subjclass'], reldict['objclass']))
         result.append(reldict)
         pairs = pairs[1:]
     return result
 
-def extract_rels(subjclass, objclass, doc, corpus='ace', patterns={'left': None, 'middle': None}, position='middle', window=10):
+def extract_rels(subjclass, objclass, doc, corpus='ace', patterns={'left': None, 'middle': None, 'comparator': 'egal'}, position='middle', window=10):
     pairs = nltk.sem.relextract.tree2semi_rel(doc)
-    reldicts = semi_rel2reldict(pairs)
+    reldicts = semi_rel2reldict(pairs, comparator=patterns['comparator'])
 
     dic = {
         'middle': 'filler',

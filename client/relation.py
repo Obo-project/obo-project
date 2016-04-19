@@ -4,29 +4,27 @@ from server import post_request
 
 class relation(object):
 
-    def __init__(self, relationName , subjclass , objclass , make_nice, patterns):
-
+    def __init__(self, relationName , subjclass , objclass , make_nice, patterns_list):
         self.relationName = relationName
         self.objclass = objclass
         self.subjclass = subjclass
         self.make_nice = make_nice
-
-        self.patterns = patterns
+        self.patterns_list = patterns_list
 
     def extract(self, sentence):
-
-        relations = extract_rels(self.subjclass , self.objclass , sentence , patterns=self.patterns)
-
+        relations = []
+        for patterns in self.patterns_list:
+            relations += extract_rels(self.subjclass , self.objclass , sentence , patterns=patterns)
         return [relationData(self, rel, self.make_nice) for rel in relations]
 
 class relationData(object):
 
     def __init__(self, relation, rel, make_nice):
-
         self.objet = make_nice(rel['objsym'])
         self.subject = make_nice(rel['subjsym'])
         self.relation = relation
+        self.comparator = rel['comparator']
 
     def post(self):
-        data = {'entity':self.relation.relationName , 'object':self.objet , 'subject':self.subject}
+        data = {'relation':self.relation.relationName , 'entity':self.objet , 'quantity':self.subject, 'comparator':self.comparator}
         post_request('http://localhost:8888/cake_obo/', data)

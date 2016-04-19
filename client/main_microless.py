@@ -12,13 +12,12 @@ LIVE_IN = re.compile(r'.*(live|lives|inhabit|inhabits|are|is).*\bin\b(?!\b.+ing)
 THERE = re.compile(r'.*((There.*are)|(there.*are)|(There.*is)|(there.*is))')
 IN = re.compile(r'\bin\b')
 
-sents = "There are 65 million people in Germany."
+sents = "There are more than 65 million people in France."
+print("Analysed sentence : ", sents)
 sents = precompute(sents)
-print(sents)
-
+print("Precomputed sentence : ", sents)
 
 relations = hasPop.extract(sents)
-print(relations)
 
 for rel in relations:
     rel.post()
