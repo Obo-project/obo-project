@@ -1,0 +1,5 @@
+curl -H "Content-Type: application/json" -X POST -d '{"entity":"france","relation":"population","quantity":"60000"}' http://localhost:8888/cake_obo/
+curl -d '{"entity":"france"}' -X POST http://localhost:8888/cake_obo/
+curl --data "entity=France&relation=age&quantity=0" http://localhost:8888/cake_obo/
+curl --data "entity=France&relation=population&quantity=65000000" http://localhost:8888/cake_obo/
+
