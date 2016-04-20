@@ -1,5 +1,5 @@
 import re
-from rel_extract_obo import extract_rels
+from relextract import extract_rels
 from server import post_request
 
 class relation(object):

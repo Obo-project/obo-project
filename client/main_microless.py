@@ -3,15 +3,16 @@ import speech_recognition as sr
 
 import nltk
 import re
-from rel_extract_obo import precompute
-from relations.hasPop import *
+from precompute import precompute
+from relations import listeRelation
 
 sents = "There are less than 75 million people in France."
 print("Analysed sentence : ", sents)
 sents = precompute(sents)
 print("Precomputed sentence : ", sents)
 
-relations = hasPop.extract(sents)
+for relation in listeRelation:
+    rels = relation.extract(sents)
 
-for rel in relations:
-    rel.post();
+    for rel in rels:
+        rel.post();
