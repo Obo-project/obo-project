@@ -6,7 +6,7 @@ import re
 from precompute import precompute
 from relations import listeRelation
 
-sents = "There are less than 75 million people in France."
+sents = "There are more than 10 million people in France."
 print("Analysed sentence : ", sents)
 sents = precompute(sents)
 print("Precomputed sentence : ", sents)
