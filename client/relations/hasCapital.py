@@ -7,4 +7,5 @@ CAPITAL_OF = re.compile(r'.*\bcapital\b.*of.*')
 def make_nice(x):
     return x
 
-capital = relation('capitalOf' , 'GPE' , 'GPE' , make_nice , patterns_list=[{'left':UNIVERSAL , 'middle': CAPITAL_OF , 'comparator': 'egal'}])
+hasCapital = relation('capitalOf' , 'GPE' , 'GPE' , make_nice , patterns_list=[
+    {'left':UNIVERSAL , 'middle': CAPITAL_OF , 'comparator': 'egal'}])

@@ -35,7 +35,7 @@ def make_nice(text):
     text = [replace_int(x) for x in text.split('_')]
     return("".join(text))
 
-hasPop = relation('hasPopulation' , 'PPCD' , 'LOC' , make_nice , patterns_list=[
+hasPopulation = relation('hasPopulation' , 'PPCD' , 'GPE' , make_nice , patterns_list=[
     {'left': UNIVERSAL, 'middle': LIVE_IN, 'comparator': 'egal'},
     {'left': THERE, 'middle': IN, 'comparator': 'egal'},
     {'left': THERE_MORE, 'middle': IN, 'comparator': 'more'},

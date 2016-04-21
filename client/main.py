@@ -4,14 +4,14 @@ import speech_recognition as sr
 import nltk
 import re
 from rel_extract_obo import precompute, extract_rels
-from relations.hasPop import *
+from relations.hasPopulation import *
 
 def callback(recognizer, audio):
 	try:
 		sents = recognizer.recognize_google(audio , language = "en")
 		print(sents)
 		sents = precompute(sents)
-		relations = hasPop.extract(sents)
+		relations = hasPopulation.extract(sents)
 		for rel in relations:
 		    rel.post();
 
