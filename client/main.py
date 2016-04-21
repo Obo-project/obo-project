@@ -3,17 +3,19 @@ import speech_recognition as sr
 
 import nltk
 import re
-from rel_extract_obo import precompute, extract_rels
-from relations.hasPopulation import *
+from precompute import precompute
+from relations import listeRelation
 
 def callback(recognizer, audio):
 	try:
 		sents = recognizer.recognize_google(audio , language = "en")
 		print(sents)
 		sents = precompute(sents)
-		relations = hasPopulation.extract(sents)
-		for rel in relations:
-		    rel.post();
+		for relation in listeRelation:
+		    rels = relation.extract(sents)
+
+		    for rel in rels:
+		        rel.post();
 
 	except sr.UnknownValueError:
 		print("Google Speech Recognition could not understand audio")
