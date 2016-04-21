@@ -3,13 +3,15 @@ import re
 
 UNIVERSAL = re.compile(r'.*')
 LIVE_IN = re.compile(r'.*(live|lives|inhabit|inhabits|are|is|living)+.*\bin\b(?!\b.+ing)')
-THERE = re.compile(r'.*((There.*are)|(there.*are)|(There.*is)|(there.*is))+\b(?!\b.+than)')
+THERE = re.compile(r'.*((There.*are)|(there.*are)|(There.*is)|(there.*is))+\b(?!.+than)')
 THERE_MORE = re.compile(r'.*((There.*are)|(there.*are)|(There.*is)|(there.*is)).*(more.*than)')
 THERE_LESS = re.compile(r'.*((There.*are)|(there.*are)|(There.*is)|(there.*is)).*(less.*than)')
 IN = re.compile(r'.*\bin\b(?!\b.+ing)')
 
 number_dic = {
-    'million': '000000'
+    'million': '000000',
+    'thousand': '000',
+    'hundread': '00'
 }
 
 grammar = """
@@ -39,4 +41,5 @@ hasPopulation = relation('hasPopulation' , 'PPCD' , 'GPE' , make_nice , patterns
     {'left': UNIVERSAL, 'middle': LIVE_IN, 'comparator': 'egal'},
     {'left': THERE, 'middle': IN, 'comparator': 'egal'},
     {'left': THERE_MORE, 'middle': IN, 'comparator': 'more'},
-    {'left': THERE_LESS, 'middle': IN, 'comparator': 'less'}])
+    {'left': THERE_LESS, 'middle': IN, 'comparator': 'less'}
+])

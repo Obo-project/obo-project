@@ -1,6 +1,6 @@
 from relations import hasPopulation
-from relations import hasCapital
+from relations import capital
 
-listeRelation = [hasPopulation.hasPopulation, hasCapital.hasCapital]
+listeRelation = [hasPopulation.hasPopulation, capital.capital]
 grammar = hasPopulation.grammar
 dic = {**hasPopulation.dic, }
