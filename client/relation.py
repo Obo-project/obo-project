@@ -26,5 +26,5 @@ class relationData(object):
         self.comparator = comparator
 
     def post(self):
-        data = {'relation':self.relation.relationName, 'entity':self.objet, 'quantity':self.subject, 'comparator':self.comparator}
+        data = {'relation':self.relation.relationName, 'object':self.objet, 'subject':self.subject, 'comparator':self.comparator}
         post_request('http://localhost:8888/cake_obo/', data)
