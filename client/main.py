@@ -22,7 +22,7 @@ def callback(recognizer, audio):
 
 r = sr.Recognizer()
 m = sr.Microphone()
-m.SAMPLE_RATE = 48000
+#m.SAMPLE_RATE = 48000
 with m as source:
 	r.adjust_for_ambient_noise(source) # we only need to calibrate once, before we start listening
 

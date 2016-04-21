@@ -12,6 +12,15 @@ number_dic = {
     'million': '000000'
 }
 
+grammar = """
+    CDD: {<CD>*}
+    PPCD: {<CDD><PPUNIT>}"""
+
+dic = {
+	"people": "PPUNIT",
+	"inhabitants": "PPUNIT"
+}
+
 def replace_int(x):
     try:
         int(x)
