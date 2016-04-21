@@ -14,8 +14,6 @@ class relation(object):
     def extract(self, sentence):
         relations = []
         for patterns in self.patterns_list:
-            #print(patterns)
-            #print(extract_rels(self.subjclass , self.objclass , sentence , patterns=patterns))
             relations += extract_rels(self.subjclass , self.objclass , sentence , patterns=patterns)
         return [relationData(self, rel, self.make_nice, comparator=rel['comparator']) for rel in relations]
 
