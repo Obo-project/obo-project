@@ -1,0 +1,32 @@
+from relation import relation, relationData
+import re
+
+UNIVERSAL = re.compile(r'.*')
+IS = re.compile(r'.*\bis\b')
+HAS_POPULATION_DENSITY = re.compile(r'.*has.*population\bdensity.*')
+S_POPULATION_DENSITY = re.compile(r'.*\'s\bis.*\bdensity\b.*of.*')
+POPULATION_DENSITY_OF = re.compile(r'.*\'s.*\bcapital.*\bis')
+THERE_ARE = re.compiler(r'.*(There\bare|There\'re|there\bare|there\'re))
+IN= re.compiler(r'.*in')
+
+
+def make_nice(x):
+    return x
+    
+dic = {
+    "square kilometer": "AREA",
+    "square kilometre": "AREA",
+    "per": "PER"
+}
+
+grammar = """
+    PPDENSITY: {<PPUNIT><PER><AREA>}"""
+
+capital = relation('hasCapital' , 'GPE' , 'PPDENSITY' , make_nice , patterns_list=[
+    {'left': UNIVERSAL, 'middle': HAS_POPULATION_DENSITY, 'comparator': 'egal'},
+    {'left': CAPITAL_OF, 'middle': IS, 'comparator': 'egal', 'inverted': True},
+    {'left': S_POPULATION_DENSITY, 'middle': IS, 'comparator': 'egal'},
+    {'left': POPULATION_DENSITY_OF, 'middle': IS, 'comparator': 'egal'},
+    {'left': THERE_ARE, 'middle': , 'comparator': 'egal'},
+    
+])
