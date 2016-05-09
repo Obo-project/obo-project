@@ -13,10 +13,11 @@ from relations import listeRelation
 sents = "There are 70 million people in France."
 # sents = "There are more than 10 million people in France."
 # sents = "There are less than 10 million people in France."
+sents = "John is born in tuesday"
 
 print("Analysed sentence : ", sents)
 sents = precompute(sents)
-#print("Precomputed sentence : ", sents)
+print("Precomputed sentence : ", sents)
 
 for relation in listeRelation:
     rels = relation.extract(sents)
