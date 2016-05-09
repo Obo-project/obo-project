@@ -2,10 +2,10 @@ from relation import relation, relationData
 import re
 
 UNIVERSAL = re.compile(r'.*')
-IS_EXPORT = re.compile(r'.*import\bis\b.*')
+IS_EXPORT = re.compile(r'.*export\bis\b.*')
 S_IS_EXPORT = re.comple(r'.*\'s\bimport.*is.*')
-S_ACCOUNTED_FOR_EXPORT = re.compile(r'.*\'s\bimport.*\baccounted\b.*for.*')
-ACCOUNTED_FOR_EXPORT = re.compile(r'.*import.*accounted\b.*for.*')
+S_ACCOUNTED_FOR_EXPORT = re.compile(r'.*\'s\bexport.*\baccounted\b.*for.*')
+ACCOUNTED_FOR_EXPORT = re.compile(r'.*export.*accounted\b.*for.*')
 
 
 def make_nice(x):
