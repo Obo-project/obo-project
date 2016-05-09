@@ -1,5 +1,6 @@
 import requests
 import json
+from audio import play
 
 def post_request(url, data):
     print("Request sent to", url, " with data : ", data)
@@ -8,3 +9,4 @@ def post_request(url, data):
         print("Server answers : ", r.text)
     else:
         print("Something went terribly wrong.")
+    play('sons/coin_coin_fort.wav')

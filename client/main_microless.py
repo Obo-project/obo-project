@@ -6,6 +6,7 @@ import re
 from precompute import precompute
 from relations import listeRelation
 
+
 # sents = "The capital of France is Paris."
 # sents = "France's capital is Paris."
 # sents = "France's capital is Palaiseau."
