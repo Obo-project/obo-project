@@ -18,7 +18,7 @@ class relation(object):
 
 class relationData(object):
     def __init__(self, relation, rel, make_nice, comparator='egal', inverted=False):
-        self.object = rel['objsym']
+        self.object = make_nice(rel['objsym'])
         self.subject = make_nice(rel['subjsym'])
         self.relation = relation
         self.comparator = comparator
