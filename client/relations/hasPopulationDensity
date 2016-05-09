@@ -20,7 +20,7 @@ dic = {
 }
 
 grammar = """
-    PPDENSITY: {<PPUNIT><PER><AREA>}
+    PPDENSITY: {<PPUNIT><PER><AREA>}"""
 
 capital = relation('hasCapital' , 'GPE' , 'PPDENSITY' , make_nice , patterns_list=[
     {'left': UNIVERSAL, 'middle': HAS_POPULATION_DENSITY, 'comparator': 'egal'},
