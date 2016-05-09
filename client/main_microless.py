@@ -13,7 +13,7 @@ from relations import listeRelation
 sents = "There are 70 million people in France."
 # sents = "There are more than 10 million people in France."
 # sents = "There are less than 10 million people in France."
-sents = "John died in 1970"
+sents = "GDP in France is 3 billion dollars"
 
 print("Analysed sentence : ", sents)
 sents = precompute(sents)
