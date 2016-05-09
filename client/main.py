@@ -11,6 +11,7 @@ def callback(recognizer, audio):
 		sents = recognizer.recognize_google(audio , language = "en")
 		print(sents)
 		sents = precompute(sents)
+		print(sents)
 		for relation in listeRelation:
 		    rels = relation.extract(sents)
 
@@ -30,7 +31,4 @@ with m as source:
 stop_listening = r.listen_in_background(m, callback)
 
 import time
-for _ in range(50): time.sleep(0.1)
-for i in range(10**4):
-	time.sleep(1)
 while True: time.sleep(0.1)

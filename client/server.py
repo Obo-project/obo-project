@@ -1,5 +1,4 @@
 import requests
-import json
 
 def post_request(url, data):
     print("Request sent to", url, " with data : ", data)
