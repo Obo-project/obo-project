@@ -9,6 +9,7 @@ THERE_LESS = re.compile(r'.*((There.*are)|(there.*are)|(There.*is)|(there.*is)).
 IN = re.compile(r'.*\bin\b(?!\b.+ing)')
 
 number_dic = {
+    'billion': '000000000',
     'million': '000000',
     'thousand': '000',
     'hundread': '00'

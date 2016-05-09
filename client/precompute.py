@@ -15,7 +15,7 @@ def precompute(sents):
     sents = [[(a, f(a, b)) for (a,b) in sent] for sent in sents]
     sents = nltk.ne_chunk(sents[0])
 
-    cp = nltk.RegexpParser(grammar, loop = 2)
+    cp = nltk.RegexpParser(grammar, loop = 5)
     sents = cp.parse(sents)
 
     return sents
