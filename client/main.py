@@ -1,5 +1,6 @@
 from server import post_request
 import speech_recognition as sr
+import pyaudio
 
 import nltk
 import re
@@ -23,6 +24,7 @@ def callback(recognizer, audio):
 	except sr.RequestError:
 		print("Could not request results from Google Speech Recognition service")
 
+#SAMPLE_RATE = 44000;
 r = sr.Recognizer()
 m = sr.Microphone()
 with m as source:

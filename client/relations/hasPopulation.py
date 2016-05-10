@@ -4,8 +4,8 @@ import re
 UNIVERSAL = re.compile(r'.*')
 LIVE_IN = re.compile(r'.*(live|lives|inhabit|inhabits|are|is|living)+.*\bin\b(?!\b.+ing)')
 THERE = re.compile(r'.*((There.*are)|(there.*are)|(There.*is)|(there.*is))+\b(?!.+than)')
-THERE_MORE = re.compile(r'.*((There.*are)|(there.*are)|(There.*is)|(there.*is)).*(more.*than)')
-THERE_LESS = re.compile(r'.*((There.*are)|(there.*are)|(There.*is)|(there.*is)).*(less.*than)')
+THERE_MORE = re.compile(r'.*((There.*are)|(there.*are)|(There.*is)|(there.*is)).*(((more|greater).*than)|(superior.*to))')
+THERE_LESS = re.compile(r'.*((There.*are)|(there.*are)|(There.*is)|(there.*is)).*(((less|shorter).*than)|(inferior.*to))')
 IN = re.compile(r'.*\bin\b(?!\b.+ing)')
 
 number_dic = {

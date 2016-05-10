@@ -1,11 +1,10 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import pyaudio
 import wave
 
-chunk = 1024
-p = pyaudio.PyAudio()
-
 def play(son):
+    chunk = 1024
+    p = pyaudio.PyAudio()
     wf = wave.open(son, 'rb')
     stream = p.open(
         format = p.get_format_from_width(wf.getsampwidth()),

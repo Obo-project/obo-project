@@ -2,9 +2,14 @@ from relation import relation, relationData
 import re
 
 UNIVERSAL = re.compile(r'.*')
-S_GDP = re.compile(r'.*\'s.*\bGDP.*\b(was|is|(account for)|impicture|worth)')
-GDP_IN=re.compile(r'.*GDP.*\bin.*')
-IS=re.compile(r'.*(was|is|(account for)|impicture|worth)')
+S_GDP = re.compile(r'.*\'s.*gdp.*(was|is|(account.*for)|impicture|worth)')
+S_GDP_MORE = re.compile(r'.*\'s.*gdp.*(was|is|(account.*for)|impicture|worth).*(more)')
+S_GDP_LESS = re.compile(r'.*\'s.*gdp.*(was|is|(account.*for)|impicture|worth).*(less)')
+GDP_IN = re.compile(r'.*gdp.*(in|of).*')
+IS = re.compile(r'.*(was|is|(account.*for)|impicture|worth).*')
+IS_MORE = re.compile(r'.*(was|is|(account.*for)|impicture|worth).*(((more|greater).*than)|(superior.*to))')
+IS_LESS = re.compile(r'.*(was|is|(account.*for)|impicture|worth).*(((less|shorter).*than)|(inferior.*to)).*')
+
 
 number_dic = {
     'billion': '000000000',
@@ -28,6 +33,10 @@ def make_nice(text):
     return("".join(text))
 
 hasGDP = relation('hasGDP' , 'GPE' , 'CDD' , make_nice , patterns_list=[
-    {'left': UNIVERSAL, 'middle': S_GDP, 'comparator': 'egal'},
-    {'left': GDP_IN, 'middle': IS, 'comparator': 'egal'}
+    {'left': UNIVERSAL, 'middle': S_GDP_MORE, 'comparator': 'more', 'inverted': True},
+    {'left': GDP_IN, 'middle': IS_MORE, 'comparator': 'more', 'inverted': True},
+    {'left': UNIVERSAL, 'middle': S_GDP_LESS, 'comparator': 'less', 'inverted': True},
+    {'left': GDP_IN, 'middle': IS_LESS, 'comparator': 'less', 'inverted': True},
+    {'left': UNIVERSAL, 'middle': S_GDP, 'comparator': 'egal', 'inverted': True},
+    {'left': GDP_IN, 'middle': IS, 'comparator': 'egal', 'inverted': True},
 ])
