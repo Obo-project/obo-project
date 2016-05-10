@@ -2,7 +2,9 @@ from relation import relation, relationData
 import re
 
 UNIVERSAL = re.compile(r'.*')
-IS = re.compile(r'.*\bis\b')
+IS = re.compile(r'.*(was|is)')
+IS_MORE = re.compile(r'.*(was|is).*(((more|greater).*than)|(superior.*to))')
+IS_LESS = re.compile(r'.*(was|is).*(((less|shorter).*than)|(inferior.*to))')
 HAS_POPULATION_DENSITY = re.compile(r'.*has.*population.*density.*')
 HAS_POPULATION_DENSITY_MORE = re.compile(r'.*has.*population.*density.*(((more|greater).*than)|(superior.*to))')
 HAS_POPULATION_DENSITY_LESS = re.compile(r'.*has.*population.*density.*(((less|shorter).*than)|(inferior.*to))')
@@ -47,6 +49,10 @@ hasPopulationDensity = relation('hasPopulationDensity' , 'GPE' , 'PPDENSITY' , m
     {'left': UNIVERSAL, 'middle': HAS_POPULATION_DENSITY_MORE, 'comparator': 'more', 'inverted':True},
     {'left': UNIVERSAL, 'middle': HAS_POPULATION_DENSITY_LESS, 'comparator': 'less', 'inverted':True},
     {'left': UNIVERSAL, 'middle': HAS_POPULATION_DENSITY, 'comparator': 'egal', 'inverted':True},
+    {'left': S_POPULATION_DENSITY, 'middle': IS_MORE, 'comparator': 'more', 'inverted':True},
+    {'left': POPULATION_DENSITY_OF, 'middle': IS_MORE, 'comparator': 'more', 'inverted':True},
+    {'left': S_POPULATION_DENSITY, 'middle': IS_LESS, 'comparator': 'less', 'inverted':True},
+    {'left': POPULATION_DENSITY_OF, 'middle': IS_LESS, 'comparator': 'less', 'inverted':True},
     {'left': S_POPULATION_DENSITY, 'middle': IS, 'comparator': 'egal', 'inverted':True},
     {'left': POPULATION_DENSITY_OF, 'middle': IS, 'comparator': 'egal', 'inverted':True},
 ])
