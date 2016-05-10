@@ -18,7 +18,7 @@ class relation(object):
 
 class relationData(object):
     def __init__(self, relation, rel, make_nice, comparator='egal', inverted=False):
-        self.object = make_nice(rel['objsym'])
+        self.object = rel['objsym']
         self.subject = make_nice(rel['subjsym'])
         self.relation = relation
         self.comparator = comparator
@@ -30,4 +30,4 @@ class relationData(object):
         else:
             data = {'relation':self.relation.relationName, 'object':self.object, 'subject':self.subject, 'comparator':self.comparator}
 
-        post_request('http://localhost:8888/cake_obo/', data)
+        post_request('http://appli.lbb-architecture.com/facts', data)
