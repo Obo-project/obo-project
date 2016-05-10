@@ -3,7 +3,9 @@ import re
 
 UNIVERSAL = re.compile(r'.*')
 IS = re.compile(r'.*\bis\b')
-HAS_POPULATION_DENSITY = re.compile(r'.*has.*population\bdensity.*')
+HAS_POPULATION_DENSITY = re.compile(r'.*has.*population.*density.*')
+HAS_POPULATION_DENSITY_MORE = re.compile(r'.*has.*population.*density.*(((more|greater).*than)|(superior.*to))')
+HAS_POPULATION_DENSITY_LESS = re.compile(r'.*has.*population.*density.*(((less|shorter).*than)|(inferior.*to))')
 S_POPULATION_DENSITY = re.compile(r'.*\'s\bis.*\bdensity\b.*of.*')
 POPULATION_DENSITY_OF = re.compile(r'.*population\b.*density.*of.*')
 THERE_ARE = re.compile(r'.*(There\bare|There\'re|there\bare|there\'re)')
@@ -32,17 +34,19 @@ def replace_int(x):
         if(x in number_dic.keys()):
             return number_dic[x]
         else:
-            return x;
+            return "";
 
 def make_nice(text):
-    text = [replace_int(x) for x in text.split('_')]
+    text = [replace_int(x) for x in text.split('_') if replace_int(x) != ""]
     return(" ".join(text))
 
 grammar = """
     PPDENSITY: {<CD>+<PPUNIT><PER><AREA>+}"""
 
 hasPopulationDensity = relation('hasPopulationDensity' , 'GPE' , 'PPDENSITY' , make_nice , patterns_list=[
-    {'left': UNIVERSAL, 'middle': HAS_POPULATION_DENSITY, 'comparator': 'egal'},
-    {'left': S_POPULATION_DENSITY, 'middle': IS, 'comparator': 'egal'},
-    {'left': POPULATION_DENSITY_OF, 'middle': IS, 'comparator': 'egal'},
+    {'left': UNIVERSAL, 'middle': HAS_POPULATION_DENSITY_MORE, 'comparator': 'more', 'inverted':True},
+    {'left': UNIVERSAL, 'middle': HAS_POPULATION_DENSITY_LESS, 'comparator': 'less', 'inverted':True},
+    {'left': UNIVERSAL, 'middle': HAS_POPULATION_DENSITY, 'comparator': 'egal', 'inverted':True},
+    {'left': S_POPULATION_DENSITY, 'middle': IS, 'comparator': 'egal', 'inverted':True},
+    {'left': POPULATION_DENSITY_OF, 'middle': IS, 'comparator': 'egal', 'inverted':True},
 ])

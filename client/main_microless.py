@@ -15,8 +15,9 @@ from relations import listeRelation
 # sents = "There are more than 10 million people in France."
 # sents = "There are less than 10 million people in France."
 # sents = "population density of France is 100 inhabitants per square kilometer"
-sents = "The gdp in France is 10 billion dollars"
-#sents = "France's import is 10 billion dollars"
+# sents = "The gdp in France is 10 billion dollars"
+# sents = "France's import is 10 billion dollars"
+sents = "France has population density greater than 100 people per kilometer square"
 
 print("Analysed sentence : ", sents)
 sents = precompute(sents)
