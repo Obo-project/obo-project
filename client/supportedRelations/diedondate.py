@@ -1,5 +1,7 @@
-from relation import relation, relationData
 import re
+
+from relation import relation, relationData
+from supportedRelations import listeRelation
 
 UNIVERSAL = re.compile(r'.*')
 DIED_IN = re.compile(r'.*\bdied\b.*in.*')
@@ -12,3 +14,5 @@ diedOnDate = relation('diedOnDate' , 'PERSON' , 'CDD' , make_nice , patterns_lis
     {'left': UNIVERSAL, 'middle': DIED_IN, 'comparator': 'egal'},
     {'left': UNIVERSAL, 'middle': DIED_ON, 'comparator': 'egal'}
 ])
+
+listeRelation.append(diedOnDate)

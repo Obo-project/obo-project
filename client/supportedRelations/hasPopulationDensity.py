@@ -1,5 +1,7 @@
-from relation import relation, relationData
 import re
+
+from relation import relation, relationData
+from supportedRelations import listeRelation, grammar, dic
 
 UNIVERSAL = re.compile(r'.*')
 IS = re.compile(r'.*(was|is)')
@@ -21,7 +23,7 @@ number_dic = {
     'hundread': '00'
 }
 
-dic = {
+ppdensity_dic = {
     "square": "AREA",
     "kilometer": "AREA",
     "kilometre": "AREA",
@@ -42,8 +44,7 @@ def make_nice(text):
     text = [replace_int(x) for x in text.split('_') if replace_int(x) != ""]
     return(" ".join(text))
 
-grammar = """
-    PPDENSITY: {<CD>+<PPUNIT><PER><AREA>+}"""
+ppdensity_grammar = "PPDENSITY: {<CD>+<PPUNIT><PER><AREA>+}"
 
 hasPopulationDensity = relation('hasPopulationDensity' , 'GPE' , 'PPDENSITY' , make_nice , patterns_list=[
     {'left': UNIVERSAL, 'middle': HAS_POPULATION_DENSITY_MORE, 'comparator': 'more', 'inverted':True},
@@ -56,3 +57,7 @@ hasPopulationDensity = relation('hasPopulationDensity' , 'GPE' , 'PPDENSITY' , m
     {'left': S_POPULATION_DENSITY, 'middle': IS, 'comparator': 'egal', 'inverted':True},
     {'left': POPULATION_DENSITY_OF, 'middle': IS, 'comparator': 'egal', 'inverted':True},
 ])
+
+listeRelation.append(hasPopulationDensity)
+grammar.append(ppdensity_grammar)
+dic.update(ppdensity_dic)

@@ -1,5 +1,7 @@
-from relation import relation, relationData
 import re
+
+from relation import relation, relationData
+from supportedRelations import listeRelation, dic
 
 UNIVERSAL = re.compile(r'.*')
 
@@ -52,3 +54,6 @@ hasExport = relation('hasExport' , 'GPE' , 'CDD' , make_nice , patterns_list=[
     {'left': UNIVERSAL, 'middle': ACCOUNTED_FOR_EXPORT, 'comparator': 'egal', 'inverted': True},
     {'left': UNIVERSAL, 'middle': S_ACCOUNTED_FOR_EXPORT, 'comparator': 'egal', 'inverted': True}
 ])
+
+listeRelation.append(hasExport)
+dic.update(number_dic)

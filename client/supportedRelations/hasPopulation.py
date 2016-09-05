@@ -1,5 +1,7 @@
-from relation import relation, relationData
 import re
+
+from relation import relation, relationData
+from supportedRelations import listeRelation, grammar, dic
 
 UNIVERSAL = re.compile(r'.*')
 LIVE_IN = re.compile(r'.*(live|lives|inhabit|inhabits|are|is|living)+.*\bin\b(?!\b.+ing)')
@@ -15,11 +17,9 @@ number_dic = {
     'hundread': '00'
 }
 
-grammar = """
-    CDD: {<CD>*}
-    PPCD: {<CDD><PPUNIT>}"""
+haspop_grammar = "CDD: {<CD>*} \nPPCD: {<CDD><PPUNIT>}"
 
-dic = {
+haspop_dic = {
 	"people": "PPUNIT",
 	"inhabitants": "PPUNIT"
 }
@@ -44,3 +44,7 @@ hasPopulation = relation('hasPopulation' , 'PPCD' , 'GPE' , make_nice , patterns
     {'left': THERE_MORE, 'middle': IN, 'comparator': 'more'},
     {'left': THERE_LESS, 'middle': IN, 'comparator': 'less'}
 ])
+
+listeRelation.append(hasPopulation)
+dic.update(haspop_dic)
+grammar.append(haspop_grammar)

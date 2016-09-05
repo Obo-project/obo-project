@@ -1,4 +1,5 @@
 import re
+
 from relextract import extract_rels
 from server import post_request
 

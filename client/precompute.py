@@ -1,5 +1,6 @@
-from relations import dic, grammar
 import nltk
+
+from supportedRelations import dic, grammar
 
 def precompute(sents):
 
@@ -21,7 +22,7 @@ def precompute(sents):
     sents = [[(g(a), f(a, b)) for (a,b) in sent] for sent in sents]
     sents = nltk.ne_chunk(sents[0])
 
-    cp = nltk.RegexpParser(grammar, loop = 5)
+    cp = nltk.RegexpParser("\n".join(grammar), loop = 5)
     sents = cp.parse(sents)
-
+    print("\n".join(grammar))
     return sents

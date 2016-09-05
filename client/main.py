@@ -1,11 +1,12 @@
-from server import post_request
-import speech_recognition as sr
-import pyaudio
-
-import nltk
 import re
+
+import speech_recognition as sr
+import nltk
+
+from server import post_request
 from precompute import precompute
-from relations import listeRelation
+from supportedRelations import *
+from supportedRelations import listeRelation
 
 def callback(recognizer, audio):
 	try:

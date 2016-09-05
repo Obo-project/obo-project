@@ -1,5 +1,7 @@
-from relation import relation, relationData
 import re
+
+from relation import relation, relationData
+from supportedRelations import listeRelation
 
 UNIVERSAL = re.compile(r'.*')
 S_GDP = re.compile(r'.*\'s.*gdp.*(was|is|(account.*for)|impicture|worth)')
@@ -40,3 +42,5 @@ hasGDP = relation('hasGDP' , 'GPE' , 'CDD' , make_nice , patterns_list=[
     {'left': UNIVERSAL, 'middle': S_GDP, 'comparator': 'egal', 'inverted': True},
     {'left': GDP_IN, 'middle': IS, 'comparator': 'egal', 'inverted': True},
 ])
+
+listeRelation.append(hasGDP)

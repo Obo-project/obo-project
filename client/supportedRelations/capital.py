@@ -1,5 +1,7 @@
-from relation import relation, relationData
 import re
+
+from relation import relation, relationData
+from supportedRelations import listeRelation
 
 UNIVERSAL = re.compile(r'.*')
 IS = re.compile(r'.*\bis\b')
@@ -15,3 +17,5 @@ capital = relation('hasCapital' , 'GPE' , 'GPE' , make_nice , patterns_list=[
     {'left': CAPITAL_OF, 'middle': IS, 'comparator': 'egal', 'inverted': True},
     {'left': UNIVERSAL, 'middle': S_CAPITAL, 'comparator': 'egal', 'inverted': True}
 ])
+
+listeRelation.append(capital)
